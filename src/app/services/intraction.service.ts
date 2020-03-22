@@ -17,6 +17,10 @@ export class IntractionService {
   private normalData = new BehaviorSubject<Object>({
     label: [],
     line1: [],
+    line2: [],
+    line3: [],
+    line4: [],
+    line5: [],
   })
 
   private noCases = new BehaviorSubject<number>(100);
@@ -25,17 +29,20 @@ export class IntractionService {
   getChartData = this.chartData.asObservable();
   getNormalData = this.normalData.asObservable();
 
+  private noICU: number; 
+  private noHos: number; 
+
   constructor() { }
 
   updateNoCases(noCases: number) {
     this.noCases.next(noCases);
     this.updateChartData(noCases);
-    this.updateNormalDistribution( noCases, this.noDays.getValue() );
+    this.updateNormalDistribution( noCases, this.noDays.getValue(), this.noICU, this.noHos );
   }
 
   updateDays(noDays: number) {
     this.noDays.next(noDays);
-    this.updateNormalDistribution( this.noCases.getValue(), noDays );
+    this.updateNormalDistribution( this.noCases.getValue(), noDays, this.noICU, this.noHos );
   }
 
   updateChartData(noCases: number){
@@ -48,13 +55,16 @@ export class IntractionService {
     let hospitalizations_data: Array<number> = []; 
     let icus_data: Array<number> = []; 
     let deaths_data: Array<number> = []; 
-
+    this.noICU = 0;
+    this.noHos = 0;
     for(let i=0; i< cases.length; i++) {
       let val:number = Math.round( cases[i]* noCases / 100 );
       let hos:number = Math.round( val* hospitalizations[i] / 100 );
       let icu:number = Math.round( val* icus[i] / 100 );
       let dth:number = Math.round( val* deaths[i] / 100 );
-
+      
+      this.noHos += hos;
+      this.noICU += icu;
       cases_data.push( val );
       hospitalizations_data.push(hos);
       icus_data.push(icu);
@@ -63,24 +73,37 @@ export class IntractionService {
     }
   }
 
-  updateNormalDistribution( noCases: number, noDays: number) {
+  updateNormalDistribution( noCases: number, noDays: number, noICU: number, noHos: number) {
     // alert(` noCases: ${noCases}, noDays: ${noDays} `)
     const pi = 3.14;
     let mean = noDays;
     let sd = noDays/3;
-    let amplitude = noCases/( sd * Math.sqrt(2*Math.PI) );
+    let caseAmp = noCases/( sd * Math.sqrt(2*Math.PI) );
+    let hosAmp = noHos/( sd * Math.sqrt(2*Math.PI) );
+    let icuAmp = noICU/( sd * Math.sqrt(2*Math.PI) );
 
     let line1 = [];
+    let line2 = [];
+    let line3 = [];
+    let line4 = [];
+    let line5 = [];
     let label = [];
 
     var nbiter=500;
     for(var i=0;i<=nbiter;i++)
     {
-      label[i]= i;
-      line1[i]= amplitude * Math.exp(-0.5 * ( Math.pow( (label[i]- mean)/sd, 2 ) ));
+      label[i]= i*1;
+      line1[i]= this.gaussFunction(label[i], caseAmp, sd, mean);
+      line2[i]= this.gaussFunction(label[i], hosAmp , sd, mean );
+      line3[i]= this.gaussFunction(label[i], icuAmp , sd, mean );
+      line4[i]= 10000;
+      line5[i]= 1000;
     }  
     console.log({ label , line1 });
-    this.normalData.next({ label , line1 });
+    this.normalData.next({ label , line1, line2, line3, line4, line5 });
   }
 
+  gaussFunction(x, amplitude, sd, mean) {
+    return amplitude * Math.exp(-0.5 * ( Math.pow( (x- mean)/sd, 2 ) ));
+  }
 }

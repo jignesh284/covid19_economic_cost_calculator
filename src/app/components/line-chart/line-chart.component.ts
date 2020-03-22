@@ -34,18 +34,55 @@ export class LineChartComponent implements OnInit {
   }
 
   renderChart(id: string, chartData: Object, title: String): void{
-    console.log("ID ::" +id )
+    console.log("ID ::" +id );
+    // .colors {
+    //   color: #ffcc00; /* cases */
+    //   color: #5cb85c; /* hos */
+    //   color: #5eafef; /* icu */
+    //   color: #ff5252; /* death */
+    // }
+    let datasets= [];
+    let colors = ["#ffcc00","#5cb85c","#5eafef", "#5cb85c", "#5eafef" ] 
+    let label = ["Distribution of Cases", "Distribution of hospitalizations", "Distribution of ICU admissions", "Base for hospitalizations", "Base for ICU admissions" ];
+    for(let i=0; i<5; i++) {
+      let key="line"+(i+1);
+      let data;
+      if(i<3) {
+        data = { 
+          data: this.chartData[key],
+          label: label[i],
+          borderColor: colors[i],
+          fill: false,
+          showLine: true,
+          pointRadius: 1,
+          pointHoverRadius: 2,
+        }
+      } else {
+        data = { 
+          data: this.chartData[key],
+          label: label[i],
+          borderColor: colors[i],
+          fill: false,
+          borderStyle:'dash',
+          showLine: true,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth : 2,
+          borderDash : [10,10],
+        }
+      }
+      datasets.push( data)
+    }
+
+    
+
+    
+
     return new Chart(id, {
       type: 'line',
       data: {
         labels: this.chartData['label'],
-       datasets: [{ 
-          data: this.chartData['line1'],
-          label: "Distribution",
-          borderColor: "#ffcc00",
-          fill: false
-        }
-        ]
+        datasets: datasets
       },
       options: {
         title: {
@@ -71,7 +108,7 @@ export class LineChartComponent implements OnInit {
             },
             ticks: {
               beginAtZero: false,
-              stepSize: 20,
+              // stepSize: 20,
               // stepSize: 50,
               // max: 500,
               // min: 0,
@@ -80,7 +117,7 @@ export class LineChartComponent implements OnInit {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Number of cases',
+              labelString: 'No. of cases, hospitalizations, ICU admissions, case-fatality',
               fontSize: 15,
               fontStyle: 'bold',
               padding: 20

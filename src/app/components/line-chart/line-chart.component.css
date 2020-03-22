@@ -2,3 +2,10 @@
     margin: 0 auto;
     display: block;
 }
+
+.colors {
+    color: #ffcc00; /* cases */
+    color: #5cb85c; /* hos */
+    color: #5eafef; /* icu */
+    color: #ff5252; /* death */
+  }
