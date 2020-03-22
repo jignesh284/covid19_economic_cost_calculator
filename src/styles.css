@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+   /* SLIDER */
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    background-color: #9D2235;
+}
+
+.mat-slider-horizontal {
+width: 300px;
+}
+
+.mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label {
+    background-color: #9D2235;
+}
+
+.mat-slider-horizontal .mat-slider-track-background{
+    height: 10px !important;
+}

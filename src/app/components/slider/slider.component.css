@@ -1,0 +1,21 @@
+
+.slider{
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.slider_val{
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    font-size: 18px;
+    display: inline-block;
+    text-align: center;
+}
+
+.slider-name{
+    margin: 10px 0 20px 0;
+}
+

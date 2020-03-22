@@ -1,0 +1,14 @@
+<div class="slider" >
+    <div class="slider-name">{{sliderName}}</div>
+    <mat-slider
+            thumbLabel
+            [displayWith]="formatLabel"
+            [min]="min"
+            [max]="max"
+            [step]="step"
+            [value] = "inputValue"
+            (change)="onInputChange($event)" 
+            >
+        </mat-slider>
+        <input type="text" class="slider_val" (keyup)="textChanged($event)" [(ngModel)]="inputValue"/>
+</div>

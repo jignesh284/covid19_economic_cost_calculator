@@ -1,0 +1,14 @@
+<div class="row">
+    <app-slider 
+            sliderName="Number of cases :" 
+            tickInterval="1000"
+            min="100"
+            max="1000000"
+            step="100"
+            id="cases"
+    ></app-slider>
+    <app-bar-chart  [chartWidth]="1000" [chartHeight]="500" ></app-bar-chart>
+    <!-- Normal Distribution -->
+    <app-slider sliderName="Days till peak :" min="10" max="200" step="1" id="normalDist"></app-slider>
+    <app-line-chart [chartWidth]="1000" [chartHeight]="500" ></app-line-chart>
+</div>
