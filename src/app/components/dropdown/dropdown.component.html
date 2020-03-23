@@ -1,0 +1,12 @@
+<div class="dropdown-wrapper">
+    <mat-form-field>
+        <mat-label>Select Model</mat-label>
+        <mat-select [(value)]="selected" (selectionChange)="valueChanged()">
+          <mat-option *ngFor="let opt of options" [value]="opt.value">
+            {{opt.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+
+

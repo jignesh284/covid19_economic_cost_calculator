@@ -108,7 +108,7 @@ export class LineChartComponent implements OnInit {
             },
             ticks: {
               beginAtZero: false,
-              // stepSize: 20,
+               stepSize: 20,
               // stepSize: 50,
               // max: 500,
               // min: 0,
@@ -117,7 +117,7 @@ export class LineChartComponent implements OnInit {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'No. of cases, hospitalizations, ICU admissions, case-fatality',
+              labelString: 'No. of cases, hospitalizations, ICU admissions',
               fontSize: 15,
               fontStyle: 'bold',
               padding: 20

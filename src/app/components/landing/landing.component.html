@@ -1,4 +1,5 @@
-<div class="row">
+<div class="container">
+    <app-dropdown></app-dropdown>
     <app-slider 
             sliderName="Number of cases :" 
             tickInterval="1000"
@@ -8,6 +9,7 @@
             id="cases"
     ></app-slider>
     <app-bar-chart  [chartWidth]="1000" [chartHeight]="500" ></app-bar-chart>
+    <app-table title="Category wise cost($)"></app-table>
     <!-- Normal Distribution -->
     <app-slider sliderName="Days till peak :" min="10" max="200" step="1" id="normalDist"></app-slider>
     <app-line-chart [chartWidth]="1000" [chartHeight]="500" ></app-line-chart>
