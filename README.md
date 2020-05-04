@@ -1,4 +1,4 @@
-# EconomicCalc
+# Economic Cost Calculator for COVID-19 [Dashboard](https://hopeful-lamarr-98f771.netlify.app/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
